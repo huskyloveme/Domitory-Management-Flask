@@ -1,0 +1,82 @@
+{% extends "index.html" %}
+{% block title %} HOME {% endblock %}
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card-body">
+                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+                                   aria-describedby="example2_info">
+                                <thead>
+                                <tr>
+                                    {% for column in col %}
+                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example2"
+                                            rowspan="1"
+                                            colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending">{{ column }}
+                                        </th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in data_col %}
+                                    <tr>
+                                        {% for j in i %}
+                                        <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ j }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                Showing page {{ page }} of {{ total_page }} pages with {{ count_data }} entries
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                <ul class="pagination">
+                                    {% if page > 1 %}
+                                        <li class="paginate_button page-item previous" id="example2_previous"><a
+                                                href="/?page={{ page - 1 }}" aria-controls="example2" data-dt-idx="0"
+                                                tabindex="0"
+                                                class="page-link">Previous</a></li>
+                                    {% endif %}
+
+                                    {% for page_num in range(page - 2, page + 3) %}
+                                        {% if page_num > 0 and page_num <= total_page %}
+                                            <li class="paginate_button page-item {% if page == page_num %}active{% endif %}"><a
+                                                    href="/?page={{ page_num }}"
+                                                    aria-controls="example2"
+                                                    data-dt-idx="1" tabindex="0"
+                                                    class="page-link">{{ page_num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    <li class="paginate_button page-item next" id="example2_next"><a
+                                            href="/?page={{ page + 1 }}"
+                                            aria-controls="example2"
+                                            data-dt-idx="7"
+                                            tabindex="0"
+                                            class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+{% endblock %}
