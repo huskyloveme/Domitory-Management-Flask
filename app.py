@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flask_paginate import Pagination, get_page_parameter
+# from flask_paginate import Pagination, get_page_parameter
 from databases.connect_mysql import cursor, connection
 import math
 
