@@ -62,14 +62,15 @@
                                                     class="page-link">{{ page_num }}</a></li>
                                         {% endif %}
                                     {% endfor %}
-
-                                    <li class="paginate_button page-item next" id="example2_next"><a
-                                            href="/?page={{ page + 1 }}"
-                                            aria-controls="example2"
-                                            data-dt-idx="7"
-                                            tabindex="0"
-                                            class="page-link">Next</a>
-                                    </li>
+                                    {% if page != total_page %}
+                                        <li class="paginate_button page-item next" id="example2_next"><a
+                                                href="/?page={{ page + 1 }}"
+                                                aria-controls="example2"
+                                                data-dt-idx="7"
+                                                tabindex="0"
+                                                class="page-link">Next</a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
