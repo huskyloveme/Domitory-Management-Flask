@@ -1,12 +1,7 @@
 import mysql.connector
+from databases.info_db import db_config_info
 
-db_config = {
-    'host': '34.143.147.167',
-    'user': 'admin',
-    'password': 'Admin123!@#',
-    'database': 'domitory_management',
-    'port': '3306'
-}
+db_config = db_config_info
 connection = mysql.connector.connect(**db_config)
 cursor = connection.cursor()
 # query = "select count(1) from students"

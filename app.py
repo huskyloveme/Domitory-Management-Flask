@@ -33,7 +33,13 @@ def show_database(table_name):
     result_data_col = cursor.fetchall()
     count_data = int(result_data_col[0][0])
 
-    return render_template("home/home.html", col=col, data_col=data_col, page = int(page), count_data=count_data, total_page=math.ceil(count_data/limit))
+    return render_template("home/show_database.html",
+                           table_name = str(table_name).upper(),
+                           col=col,
+                           data_col=data_col,
+                           page = int(page),
+                           count_data=count_data,
+                           total_page=math.ceil(count_data / limit))
 
 
 
