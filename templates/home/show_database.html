@@ -1,11 +1,16 @@
 {% extends "index.html" %}
 {% block title %} HOME {% endblock %}
-{% block title_page %}<h1 class="m-0">{{ table_name }}</h1>{% endblock %}
+{% block title_page %}<h1 class="m-0">{{ table_name | upper }}</h1>{% endblock %}
 {% block content %}
     <section class="content">
         <div class="container-fluid">
             <div class="card-body">
                 <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <a href="{{ table_name }}_add">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                        </button>
+                    </a>
                     <div class="row">
                         <div class="col-sm-12 col-md-6"></div>
                         <div class="col-sm-12 col-md-6"></div>
@@ -16,7 +21,7 @@
                                    aria-describedby="example2_info">
                                 <thead>
                                 <tr>
-                                    {% for column in col %}
+                                    {% for column in col[1:] %}
                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="example2"
                                             rowspan="1"
                                             colspan="1" aria-sort="ascending"
@@ -28,9 +33,22 @@
                                 <tbody>
                                 {% for i in data_col %}
                                     <tr>
-                                        {% for j in i %}
+                                        {% for j in i[1:] %}
                                         <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ j }}</td>
                                         {% endfor %}
+                                        <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            <a class="btn btn-info btn-sm"
+                                               href="/{{ table_name }}_edit_{{ i[0] }}">
+                                                <i class="fa fa-pencil"> Edit
+                                                </i>
+                                            </a>
+                                        </td>
+                                        <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            <a class="btn btn-info btn-sm" onclick="DeleteToData({{ i[0] }}, '{{ table_name }}')">
+                                                <i class="fa fa-pencil"> Delete
+                                                </i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -81,4 +99,6 @@
         </div><!-- /.container-fluid -->
     </section>
 
+{% endblock %}
+{% block js %}<script src="static/pages-self/delete.js"></script>
 {% endblock %}

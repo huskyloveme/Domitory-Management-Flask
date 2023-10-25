@@ -1,0 +1,128 @@
+{% extends "index.html" %}
+{% block title %} ADD DATABASE {% endblock %}
+{% block title_page %}<h1 class="m-0">{{ table_name | upper }}</h1>{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Add</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="col-12">
+                    <div class="invoice p-3 mb-3 float-left col-12">
+
+                        {% for i in col %}
+                            {% if table_name == 'students' %}
+                                {% if i not in ['day_in','day_out','birthday','status','gender'] %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'status' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            <option value="ACTIVE">ACTIVE</option>
+                                            <option value="INACTIVE">INACTIVE</option>
+                                        </select>
+                                    </div>
+                                {% elif i == 'gender' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            <option value="MALE">MALE</option>
+                                            <option value="FEMALE">FEMALE</option>
+                                            <option value="OTHER">OTHER</option>
+                                        </select>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="datetime-local" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if table_name == 'rooms' %}
+                                {% if i not in ['type','status'] %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'type' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            <option value="PUBLIC">PUBLIC</option>
+                                            <option value="PRIVATE">PRIVATE</option>
+                                        </select>
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            <option value="AVAILABLE">AVAILABLE</option>
+                                            <option value="UNAVAILABLE">UNAVAILABLE</option>
+                                        </select>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if table_name == 'buildings' %}
+                                <div class="form-group col-12">
+                                    <label>{{ i }}</label>
+                                    <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                           value="">
+                                </div>
+                            {% endif %}
+                            {% if table_name == 'motorbikes' %}
+                                {% if i not in ['time_registration','status', ] %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'time_registration' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="datetime-local" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% else %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            <option value="REGISTER">REGISTER</option>
+                                            <option value="UNREGISTER">UNREGISTER</option>
+                                        </select>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="col-12 no-print">
+                            <button type="button" class="btn btn-primary float-right"
+                                    onclick="SaveToData('{{ table_name }}')">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="static/pages-self/add.js"></script>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "index.html" %}
+{% block title %} EDIT DATABASE {% endblock %}
+{% block title_page %}<h1 class="m-0">{{ table_name | upper }}</h1>{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Edit</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active">Edit</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="col-12">
+                <div class="invoice p-3 mb-3 float-left col-12">
+                    {% for key, value in data.items() %}
+                        <!-- /EDIT STUDENTS -->
+                        {% if table_name == 'students' %}
+                            {% if key not in ['day_in','day_out','birthday','status','gender'] %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ value }}">
+                                </div>
+                            {% elif key == 'status' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ value }}">
+                                        <option value="ACTIVE" {% if value == "ACTIVE" %}selected{% endif %}>ACTIVE
+                                        </option>
+                                        <option value="INACTIVE" {% if value == "INACTIVE" %}selected{% endif %}>
+                                            INACTIVE
+                                        </option>
+                                    </select>
+                                </div>
+                            {% elif key == 'gender' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ value }}">
+                                        <option value="MALE" {% if value == "MALE" %}selected{% endif %}>MALE</option>
+                                        <option value="FEMALE" {% if value == "FEMALE" %}selected{% endif %}>FEMALE
+                                        </option>
+                                        <option value="OTHER"
+                                                {% if (value != "MALE" and value != "FEMALE") %}selected{% endif %}>
+                                            OTHER
+                                        </option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="datetime-local" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ value }}">
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <!-- /EDIT ROOMS -->
+                        {% if table_name == 'rooms' %}
+                            {% if key not in ['type','status'] %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ value }}">
+                                </div>
+                            {% elif key == 'type' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        <option value="PUBLIC" {% if value == "PUBLIC" %}selected{% endif %}>PUBLIC</option>
+                                        <option value="PRIVATE" {% if value == "PRIVATE" %}selected{% endif %}>PRIVATE</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        <option value="AVAILABLE" {% if value == "AVAILABLE" %}selected{% endif %}>AVAILABLE</option>
+                                        <option value="UNAVAILABLE" {% if value == "UNAVAILABLE" %}selected{% endif %}>UNAVAILABLE</option>
+                                    </select>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <!-- /EDIT BUILDINGS -->
+                        {% if table_name == 'buildings' %}
+                            <div class="form-group col-12">
+                                <label>{{ key }}</label>
+                                <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                       value="{{ value }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="col-12 no-print">
+                        <button type="button" class="btn btn-primary float-right" onclick="SaveToData('{{ table_name }}')">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block js %}<script src="static/pages-self/edit.js"></script>
+{% endblock %}
