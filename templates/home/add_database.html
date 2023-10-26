@@ -20,14 +20,22 @@
             <div class="container-fluid">
                 <div class="col-12">
                     <div class="invoice p-3 mb-3 float-left col-12">
-
                         {% for i in col %}
                             {% if table_name == 'students' %}
-                                {% if i not in ['day_in','day_out','birthday','status','gender'] %}
+                                {% if i not in ['room','day_in','day_out','birthday','status','gender'] %}
                                     <div class="form-group col-12">
                                         <label>{{ i }}</label>
                                         <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
                                                value="">
+                                    </div>
+                                {% elif i == 'room' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_room %}
+                                            <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 {% elif i == 'status' %}
                                     <div class="form-group col-12">
@@ -55,11 +63,20 @@
                                 {% endif %}
                             {% endif %}
                             {% if table_name == 'rooms' %}
-                                {% if i not in ['type','status'] %}
+                                {% if i not in ['building','type','status'] %}
                                     <div class="form-group col-12">
                                         <label>{{ i }}</label>
                                         <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
                                                value="">
+                                    </div>
+                                {% elif i == 'building' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_building %}
+                                            <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 {% elif i == 'type' %}
                                     <div class="form-group col-12">
@@ -87,11 +104,20 @@
                                 </div>
                             {% endif %}
                             {% if table_name == 'motorbikes' %}
-                                {% if i not in ['time_registration','status', ] %}
+                                {% if i not in ['time_registration','status','msv'] %}
                                     <div class="form-group col-12">
                                         <label>{{ i }}</label>
                                         <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
                                                value="">
+                                    </div>
+                                {% elif i == 'msv' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_sinhvien %}
+                                                <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 {% elif i == 'time_registration' %}
                                     <div class="form-group col-12">
@@ -109,8 +135,110 @@
                                     </div>
                                 {% endif %}
                             {% endif %}
+                            {% if table_name == 'visitors' %}
+                                {% if i not in ['time_in','time_out','gender','friend_of_msv'] %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'friend_of_msv' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_sinhvien %}
+                                                <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% elif i == 'time_in' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="datetime-local" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'time_out' %}
+                                <div class="form-group col-12">
+                                    <label>{{ i }}</label>
+                                    <input type="datetime-local" id="{{ i }}" name="{{ i }}" class="form-control"
+                                           value="">
+                                </div>
+                                {% else %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            <option value="MALE">MALE</option>
+                                            <option value="FEMALE">FEMALE</option>
+                                            <option value="OTHER">OTHER</option>
+                                        </select>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if table_name == 'parking_histories' %}
+                                {% if i not in ['time_in','time_out','license_plate'] %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'license_plate' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_motor %}
+                                                <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ i }}</label>
+                                    <input type="datetime-local" id="{{ i }}" name="{{ i }}" class="form-control"
+                                           value="">
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if table_name == 'services' %}
+                                <div class="form-group col-12">
+                                    <label>{{ i }}</label>
+                                    <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                           value="">
+                                </div>
+                            {% endif %}
+                            {% if table_name == 'student_service' %}
+                                {% if i not in ['time_end','service','msv'] %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <input type="text" id="{{ i }}" name="{{ i }}" class="form-control"
+                                               value="">
+                                    </div>
+                                {% elif i == 'service' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_service %}
+                                                <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% elif i == 'msv' %}
+                                    <div class="form-group col-12">
+                                        <label>{{ i }}</label>
+                                        <select id="{{ i }}" name="{{ i }}" class="form-control">
+                                            {% for op in data_sinhvien %}
+                                                <option value="{{ op }}">{{ op }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ i }}</label>
+                                    <input type="datetime-local" id="{{ i }}" name="{{ i }}" class="form-control"
+                                           value="">
+                                </div>
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
-
                         <div class="col-12 no-print">
                             <button type="button" class="btn btn-primary float-right"
                                     onclick="SaveToData('{{ table_name }}')">

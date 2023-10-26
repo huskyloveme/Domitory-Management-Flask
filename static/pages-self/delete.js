@@ -17,7 +17,7 @@ function DeleteToData(id, table_name) {
                 toastr.success(res.mesg);
                 setTimeout(function () {
                     location.href = "/show_database_" + table_name;
-                }, 2000);
+                }, 1000);
             } else {
                 toastr.error(res.mesg);
             }

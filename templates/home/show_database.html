@@ -34,16 +34,17 @@
                                 {% for i in data_col %}
                                     <tr>
                                         {% for j in i[1:] %}
-                                        <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ j }}</td>
+                                        <td style="max-height: 80px; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            {%if j == None or j == '' %}_{% else %}{{ j }}{% endif %}</td>
                                         {% endfor %}
-                                        <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        <td style="max-height: 80px; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                             <a class="btn btn-info btn-sm"
                                                href="/{{ table_name }}_edit_{{ i[0] }}">
                                                 <i class="fa fa-pencil"> Edit
                                                 </i>
                                             </a>
                                         </td>
-                                        <td style="max-height: 100px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        <td style="max-height: 80px; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                             <a class="btn btn-info btn-sm" onclick="DeleteToData({{ i[0] }}, '{{ table_name }}')">
                                                 <i class="fa fa-pencil"> Delete
                                                 </i>

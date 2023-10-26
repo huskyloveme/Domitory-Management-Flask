@@ -10,7 +10,7 @@ function SaveToData(table_name) {
     let data;
     if (table_name == 'students') {
         data = {
-            'room_id': $("#room_id").val(),
+            'room': $("#room").val(),
             'msv': $("#msv").val(),
             'name': $("#name").val(),
             'address': $("#address").val(),
@@ -24,7 +24,7 @@ function SaveToData(table_name) {
     }
     if (table_name == 'rooms') {
         data = {
-            'building_id': $("#building_id").val(),
+            'building': $("#building").val(),
             'name': $("#name").val(),
             'accommodate': $("#accommodate").val(),
             'type': $("#type").val(),
@@ -41,11 +41,45 @@ function SaveToData(table_name) {
     }
     if (table_name == 'motorbikes') {
         data = {
-            'student_id': $("#student_id").val(),
+            'msv': $("#msv").val(),
             'name': $("#name").val(),
             'license_plate': $("#license_plate").val(),
             'time_registration': $("#time_registration").val(),
             'status': $("#status").val(),
+        };
+    }
+    if (table_name == 'visitors') {
+        data = {
+            'cccd': $("#cccd").val(),
+            'name': $("#name").val(),
+            'phone': $("#phone").val(),
+            'gender': $("#gender").val(),
+            'time_in': $("#time_in").val(),
+            'time_out': $("#time_out").val(),
+            'friend_of_msv': $("#friend_of_msv").val(),
+        };
+    }
+    if (table_name == 'parking_histories') {
+        data = {
+            'license_plate': $("#license_plate").val(),
+            'time_in': $("#time_in").val(),
+            'time_out': $("#time_out").val(),
+        };
+    }
+    if (table_name == 'services') {
+        data = {
+            'name': $("#name").val(),
+            'price': $("#price").val(),
+            'unit': $("#unit").val(),
+            'description': $("#description").val(),
+        };
+    }
+    if (table_name == 'student_service') {
+        data = {
+            'msv': $("#msv").val(),
+            'service': $("#service").val(),
+            'time_use': $("#time_use").val(),
+            'time_end': $("#time_end").val(),
         };
     }
     // let table_name =
@@ -59,7 +93,7 @@ function SaveToData(table_name) {
                 toastr.success(res.mesg);
                 setTimeout(function () {
                     location.href = "/show_database_" + table_name;
-                }, 3000);
+                }, 1000);
             } else {
                 toastr.error(res.mesg);
             }

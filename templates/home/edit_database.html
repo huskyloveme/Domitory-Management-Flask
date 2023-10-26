@@ -25,22 +25,31 @@
         <div class="container-fluid">
             <div class="col-12">
                 <div class="invoice p-3 mb-3 float-left col-12">
-                    {% for key, value in data.items() %}
+                    {% for key, val in data.items() %}
                         <!-- /EDIT STUDENTS -->
                         {% if table_name == 'students' %}
-                            {% if key not in ['day_in','day_out','birthday','status','gender'] %}
+                            {% if key not in ['room','day_in','day_out','birthday','status','gender'] %}
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
                                     <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
-                                           value="{{ value }}">
+                                           {% if val|string == 'None' %}value=""{% else %}value="{{ val }}"{% endif %}>
+                                </div>
+                            {% elif key == 'room' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ val }}">
+                                        {% for op in data_room %}
+                                            <option value="{{ op }}" {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             {% elif key == 'status' %}
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
-                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ value }}">
-                                        <option value="ACTIVE" {% if value == "ACTIVE" %}selected{% endif %}>ACTIVE
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ val }}">
+                                        <option value="ACTIVE" {% if val == "ACTIVE" %}selected{% endif %}>ACTIVE
                                         </option>
-                                        <option value="INACTIVE" {% if value == "INACTIVE" %}selected{% endif %}>
+                                        <option value="INACTIVE" {% if val == "INACTIVE" %}selected{% endif %}>
                                             INACTIVE
                                         </option>
                                     </select>
@@ -48,12 +57,12 @@
                             {% elif key == 'gender' %}
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
-                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ value }}">
-                                        <option value="MALE" {% if value == "MALE" %}selected{% endif %}>MALE</option>
-                                        <option value="FEMALE" {% if value == "FEMALE" %}selected{% endif %}>FEMALE
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control" value="{{ val }}">
+                                        <option value="MALE" {% if val == "MALE" %}selected{% endif %}>MALE</option>
+                                        <option value="FEMALE" {% if val == "FEMALE" %}selected{% endif %}>FEMALE
                                         </option>
                                         <option value="OTHER"
-                                                {% if (value != "MALE" and value != "FEMALE") %}selected{% endif %}>
+                                                {% if (val != "MALE" and val != "FEMALE") %}selected{% endif %}>
                                             OTHER
                                         </option>
                                     </select>
@@ -62,32 +71,41 @@
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
                                     <input type="datetime-local" id="{{ key }}" name="{{ key }}" class="form-control"
-                                           value="{{ value }}">
+                                           value="{{ val }}">
                                 </div>
                             {% endif %}
                         {% endif %}
                         <!-- /EDIT ROOMS -->
                         {% if table_name == 'rooms' %}
-                            {% if key not in ['type','status'] %}
+                            {% if key not in ['building','type','status'] %}
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
                                     <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
-                                           value="{{ value }}">
+                                           {% if val|string == 'None' %}value=""{% else %}value="{{ val }}"{% endif %}>
+                                </div>
+                            {% elif key == 'building' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        {% for op in data_building %}
+                                        <option value="{{ op }}" {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             {% elif key == 'type' %}
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
                                     <select id="{{ key }}" name="{{ key }}" class="form-control">
-                                        <option value="PUBLIC" {% if value == "PUBLIC" %}selected{% endif %}>PUBLIC</option>
-                                        <option value="PRIVATE" {% if value == "PRIVATE" %}selected{% endif %}>PRIVATE</option>
+                                        <option value="PUBLIC" {% if val == "PUBLIC" %}selected{% endif %}>PUBLIC</option>
+                                        <option value="PRIVATE" {% if val == "PRIVATE" %}selected{% endif %}>PRIVATE</option>
                                     </select>
                                 </div>
                             {% else %}
                                 <div class="form-group col-12">
                                     <label>{{ key }}</label>
                                     <select id="{{ key }}" name="{{ key }}" class="form-control">
-                                        <option value="AVAILABLE" {% if value == "AVAILABLE" %}selected{% endif %}>AVAILABLE</option>
-                                        <option value="UNAVAILABLE" {% if value == "UNAVAILABLE" %}selected{% endif %}>UNAVAILABLE</option>
+                                        <option value="AVAILABLE" {% if val == "AVAILABLE" %}selected{% endif %}>AVAILABLE</option>
+                                        <option value="UNAVAILABLE" {% if val == "UNAVAILABLE" %}selected{% endif %}>UNAVAILABLE</option>
                                     </select>
                                 </div>
                             {% endif %}
@@ -97,8 +115,162 @@
                             <div class="form-group col-12">
                                 <label>{{ key }}</label>
                                 <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
-                                       value="{{ value }}">
+                                       value="{{ val }}">
                             </div>
+                        {% endif %}
+                        <!-- /EDIT MOTORBIKES -->
+                        {% if table_name == 'motorbikes' %}
+                            {% if key not in ['time_registration','status','msv'] %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           {% if val|string == 'None' %}value=""{% else %}value="{{ val }}"{% endif %}>
+                                </div>
+                            {% elif key == 'msv' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        {% for op in data_sinhvien %}
+                                            <option value="{{ op }}"
+                                                    {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% elif key == 'status' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        <option value="REGISTER" {% if val == "REGISTER" %}selected{% endif %}>REGISTER
+                                        </option>
+                                        <option value="UNREGISTER" {% if val == "UNREGISTER" %}selected{% endif %}>UNREGISTER
+                                        </option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="datetime-local" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ val }}">
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <!-- /EDIT VISITORS -->
+                        {% if table_name == 'visitors' %}
+                            {% if key not in ['time_in','time_out','gender','friend_of_msv'] %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           {% if val|string == 'None' %}value=""{% else %}value="{{ val }}"{% endif %}>
+                                </div>
+                            {% elif key == 'friend_of_msv' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        {% for op in data_sinhvien %}
+                                            <option value="{{ op }}"
+                                                    {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% elif key == 'gender' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        <option value="MALE" {% if val == "MALE" %}selected{% endif %}>MALE
+                                        </option>
+                                        <option value="FEMALE" {% if val == "FEMALE" %}selected{% endif %}>FEMALE
+                                        </option>
+                                        <option value="OTHER" {% if val == "OTHER" %}selected{% endif %}>OTHER
+                                        </option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="datetime-local" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ val }}">
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <!-- /EDIT PARKING_HISTORIES -->
+                        {% if table_name == 'parking_histories' %}
+                            {% if key not in ['time_in','time_out','license_plate', 'status'] %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           {% if val|string == 'None' %}value=""{% else %}value="{{ val }}"{% endif %}>
+                                </div>
+                            {% elif key == 'license_plate' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        {% for op in data_motor %}
+                                            <option value="{{ op }}"
+                                                    {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% elif key == 'status' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        <option value="FREE" {% if val == "FREE" %}selected{% endif %}>FREE
+                                        </option>
+                                        <option value="PAID" {% if val == "PAID" %}selected{% endif %}>PAID
+                                        </option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="datetime-local" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ val }}">
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <!-- /EDIT SERVICES -->
+                        {% if table_name == 'services' %}
+                            <div class="form-group col-12">
+                                <label>{{ key }}</label>
+                                <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                       value="{{ val }}">
+                            </div>
+                        {% endif %}
+                        <!-- /EDIT PARKING_HISTORIES -->
+                        {% if table_name == 'student_service' %}
+                            {% if key not in ['time_end','service','msv'] %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="text" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           {% if val|string == 'None' %}value=""{% else %}value="{{ val }}"{% endif %}>
+                                </div>
+                            {% elif key == 'service' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        {% for op in data_service %}
+                                            <option value="{{ op }}"
+                                                    {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% elif key == 'msv' %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <select id="{{ key }}" name="{{ key }}" class="form-control">
+                                        {% for op in data_sinhvien %}
+                                            <option value="{{ op }}"
+                                                    {% if val|string == op|string %}selected{% endif %}>{{ op }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div class="form-group col-12">
+                                    <label>{{ key }}</label>
+                                    <input type="datetime-local" id="{{ key }}" name="{{ key }}" class="form-control"
+                                           value="{{ val }}">
+                                </div>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                     <div class="col-12 no-print">
