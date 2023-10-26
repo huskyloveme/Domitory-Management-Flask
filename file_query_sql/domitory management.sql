@@ -1,4 +1,4 @@
--- SET GLOBAL sql_mode = '';
+SET GLOBAL sql_mode = '';
 CREATE TABLE `students` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `room_id` integer,

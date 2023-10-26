@@ -10,6 +10,39 @@ app = Flask(__name__, static_folder="static")
 def home():
     return render_template("index.html")
 
+@app.route('/free_query', methods = ['GET','POST'])
+def free_query():
+    if request.method == "GET":
+        return render_template("home/advance_request.html")
+
+    if request.method == "POST":
+        try:
+            response = {
+                "ok": False,
+                "mesg": "Nothing",
+                "data": []
+            }
+            query = request.form.get('query')
+            cursor.execute(query)
+            col = [column[0] for column in cursor.description]
+            result_data_col = cursor.fetchall()
+            data_col = [i for i in result_data_col]
+            data = render_template("home/show_db.html",
+                                   col=col,
+                                   data_col=data_col)
+            response = {
+                "ok": True,
+                "mesg": "Successfully",
+                "data": data
+            }
+        except Exception as err:
+            response = {
+                "ok": False,
+                "mesg": str(err),
+                "data": []
+            }
+        return jsonify(response)
+
 @app.route('/show_database_<table_name>')
 def show_database(table_name):
     page = request.args.get('page', 1, type=int)
