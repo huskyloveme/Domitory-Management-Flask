@@ -1,8 +1,27 @@
 from flask import Flask, render_template, request, jsonify
 # from flask_paginate import Pagination, get_page_parameter
-from databases.connect_mysql import cursor, connection
+# from databases.connect_mysql import cursor, connection
 import math
 from datetime import datetime
+
+import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+db_config = {
+    'user': os.getenv('user'),
+    'password': os.getenv('password'),
+    'host': os.getenv('host'),
+    'database': os.getenv('database'),
+    'port': os.getenv('port')
+}
+
+connection = mysql.connector.connect(**db_config)
+cursor = connection.cursor()
+
+
 
 app = Flask(__name__, static_folder="static")
 
